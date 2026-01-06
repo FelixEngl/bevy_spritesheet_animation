@@ -2,7 +2,7 @@
 //!
 //! # Features
 //!
-//! - Animate 2D sprites, [3D sprites](crate::prelude::Sprite3d), UI images and cursors! 🎉
+//! - Animate 2D sprites, 3D sprites, UI images and cursors! 🎉
 //! - [Easily build](crate::prelude::AnimationBuilder) animations from [spritesheets](crate::prelude::Spritesheet) with custom parameters like [duration](crate::prelude::AnimationDuration), [repetitions](crate::prelude::AnimationRepeat), [direction](crate::prelude::AnimationDirection), [easing](crate::prelude::Easing).
 //! - Trigger [events](crate::prelude::AnimationEvent) when animations end or reach specific points.
 //!
