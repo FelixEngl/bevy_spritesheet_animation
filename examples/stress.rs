@@ -114,17 +114,24 @@ fn spawn_sprites(
         let transform = Transform::from_translation(random_position(&window));
 
         match cli.mode {
-            Mode::TwoD => commands.spawn((
-                component_generator.sprite(&mut atlas_layouts),
-                SpritesheetAnimation::new(animation_handle.clone()),
-                transform,
-            )),
-            Mode::ThreeD => commands.spawn((
-                component_generator.sprite3d(&mut atlas_layouts),
-                SpritesheetAnimation::new(animation_handle.clone()),
-                transform,
-            )),
-        };
+            Mode::TwoD => {
+                commands.spawn((
+                    component_generator.sprite(&mut atlas_layouts),
+                    SpritesheetAnimation::new(animation_handle.clone()),
+                    transform,
+                ));
+            }
+            Mode::ThreeD => {
+                #[cfg(feature = "3d")]
+                commands.spawn((
+                    component_generator.sprite3d(&mut atlas_layouts),
+                    SpritesheetAnimation::new(animation_handle.clone()),
+                    transform,
+                ));
+                #[cfg(not(feature = "3d"))]
+                panic!("3D mode requires the '3d' feature to be enabled");
+            }
+        }
     }
 }
 

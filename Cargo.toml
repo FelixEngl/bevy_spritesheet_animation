@@ -29,6 +29,21 @@ bevy = { version = "0.17.0", default-features = false, features = [
   "bevy_ui"
 ] }
 
+[[example]]
+name = "3d"
+required-features = ["3d"]
+
+[[example]]
+name = "stress"
+# stress example uses both 2d and 3d depending on CLI args, 
+# but we need to guard the 3d code inside it.
+# Actually, it's easier to just require 3d feature to run it if we don't want to overcomplicate the code.
+# Or we can just guard the code.
+
+[[example]]
+name = "cursor"
+required-features = ["custom_cursor"]
+
 [dev-dependencies]
 approx = "0.5.1"
 bevy = { version = "0.17.0", features = [
