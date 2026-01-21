@@ -1,3 +1,5 @@
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 use std::f32::consts::PI;
 
 use bevy::prelude::*;
@@ -9,6 +11,7 @@ use bevy::prelude::*;
 /// - <https://easings.net/>
 /// - <http://robertpenner.com/easing/penner_chapter7_tweening.pdf>
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Reflect)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[reflect(Debug, PartialEq, Hash)]
 pub enum EasingVariety {
     Quadratic,
@@ -41,6 +44,7 @@ pub enum EasingVariety {
 /// # }
 /// ```
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash, Reflect)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[reflect(Debug, Default, PartialEq, Hash)]
 pub enum Easing {
     /// Linear interpolation.

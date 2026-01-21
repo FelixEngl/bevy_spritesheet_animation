@@ -1,9 +1,12 @@
 use bevy::prelude::*;
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 
 use crate::{clip::Clip, easing::Easing};
 
 /// The duration of an [Animation].
 #[derive(Debug, Clone, Copy, Reflect)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[reflect(Debug)]
 pub enum AnimationDuration {
     /// Specifies the duration of one frame in milliseconds (default = `PerFrame(100)`).
@@ -20,6 +23,7 @@ impl Default for AnimationDuration {
 
 /// How many times an [Animation] repeats.
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash, Reflect)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[reflect(Debug, PartialEq, Hash)]
 pub enum AnimationRepeat {
     /// Loops forever (default).
@@ -31,6 +35,7 @@ pub enum AnimationRepeat {
 
 /// The direction in which the frames of an [Animation] are played.
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash, Reflect)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[reflect(Debug, PartialEq, Hash)]
 pub enum AnimationDirection {
     /// Frames play from left to right (default).
@@ -84,6 +89,7 @@ pub enum AnimationDirection {
 /// # }
 /// ```
 #[derive(Asset, Debug, Clone, Reflect)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[reflect(Debug)]
 pub struct Animation {
     pub(crate) clips: Vec<Clip>,

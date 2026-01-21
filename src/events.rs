@@ -1,3 +1,5 @@
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 use std::{
     fmt,
     sync::atomic::{AtomicUsize, Ordering},
@@ -157,6 +159,7 @@ pub enum AnimationEvent {
 ///
 /// Add markers to a clip with [AnimationBuilder::add_clip_marker()](crate::prelude::AnimationBuilder::add_clip_marker).
 #[derive(Clone, Copy, Eq, PartialEq, Hash, Reflect)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize), serde(transparent))]
 #[reflect(Debug, PartialEq, Hash)]
 pub struct Marker {
     pub(crate) value: usize,
