@@ -1,6 +1,6 @@
 [package]
 name = "bevy_spritesheet_animation"
-version = "5.1.0"
+version = "6.0.0"
 description = "A Bevy plugin for animating sprites"
 repository = "https://github.com/merwaaan/bevy_spritesheet_animation"
 readme = "README.md"
@@ -24,7 +24,7 @@ custom_cursor = ["bevy/custom_cursor"]
 serde = ["dep:serde"]
 
 [dependencies]
-bevy = { version = "0.17.0", default-features = false, features = [
+bevy = { version = "0.18", default-features = false, features = [
   "bevy_log",
   "bevy_sprite",
   "bevy_pbr",
@@ -34,11 +34,11 @@ serde = { version = "1.0.228", optional = true }
 
 [dev-dependencies]
 approx = "0.5.1"
-bevy = { version = "0.17", features = [
+bevy = { version = "0.18", features = [
   # Needed for the "stress" example  as it uses Bevy's FPS overlay
   "bevy_dev_tools"
 ] }
-clap = { version = "4.5.16", features = ["derive"] }
+clap = { version = "4.5.54", features = ["derive"] }
 rand = "0.9"
 
 [lints.clippy]

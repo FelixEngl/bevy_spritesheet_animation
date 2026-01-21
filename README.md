@@ -381,6 +381,7 @@ For more examples, browse the [examples/](examples) directory.
 
 | bevy_spritesheet_animation | bevy   |
 |----------------------------|--------|
+| 6.0.0                      | 0.18   |
 | 5.0.0                      | 0.17   |
 | 4.0.0                      | 0.17   |
 | 3.0.0                      | 0.16   |
