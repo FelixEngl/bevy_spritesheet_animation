@@ -16,9 +16,11 @@ default = [
   # In practice, this feature flag is not required as we use optional arguments for our Bevy systems.
   # However, the Github Action's environment does not support winit, which is a transitive dependency of bevy/custom_cursor.
   # So hiding this behind a feature allows us to run tests with --no-default-features in that specific context and circumvent the issue.
-  "custom_cursor"
+  "custom_cursor",
+  "3d"
 ]
 custom_cursor = ["bevy/custom_cursor"]
+3d = ["bevy/bevy_pbr"]
 
 # Allows to serialize the animations
 serde = ["dep:serde"]
@@ -27,10 +29,24 @@ serde = ["dep:serde"]
 bevy = { version = "0.18", default-features = false, features = [
   "bevy_log",
   "bevy_sprite",
-  "bevy_pbr",
   "bevy_ui"
 ] }
 serde = { version = "1.0.228", optional = true }
+
+[[example]]
+name = "3d"
+required-features = ["3d"]
+
+[[example]]
+name = "stress"
+# stress example uses both 2d and 3d depending on CLI args, 
+# but we need to guard the 3d code inside it.
+# Actually, it's easier to just require 3d feature to run it if we don't want to overcomplicate the code.
+# Or we can just guard the code.
+
+[[example]]
+name = "cursor"
+required-features = ["custom_cursor"]
 
 [dev-dependencies]
 approx = "0.5.1"

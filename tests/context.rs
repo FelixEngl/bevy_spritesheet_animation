@@ -146,9 +146,18 @@ impl Context {
         let atlas = entity_ref
             .get::<Sprite>()
             .and_then(|sprite| sprite.texture_atlas.as_ref())
-            .or(entity_ref
-                .get::<Sprite3d>()
-                .and_then(|sprite| sprite.texture_atlas.as_ref()))
+            .or_else(|| {
+                #[cfg(feature = "3d")]
+                {
+                    entity_ref
+                        .get::<Sprite3d>()
+                        .and_then(|sprite| sprite.texture_atlas.as_ref())
+                }
+                #[cfg(not(feature = "3d"))]
+                {
+                    None
+                }
+            })
             .unwrap();
 
         assert_eq!(atlas.index, expected_atlas_index);
