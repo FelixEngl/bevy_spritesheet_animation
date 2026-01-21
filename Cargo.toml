@@ -20,6 +20,9 @@ default = [
 ]
 custom_cursor = ["bevy/custom_cursor"]
 
+# Allows to serialize the animations
+serde = ["dep:serde"]
+
 [dependencies]
 bevy = { version = "0.18", default-features = false, features = [
   "bevy_log",
@@ -27,6 +30,7 @@ bevy = { version = "0.18", default-features = false, features = [
   "bevy_pbr",
   "bevy_ui"
 ] }
+serde = { version = "1.0.228", optional = true }
 
 [dev-dependencies]
 approx = "0.5.1"

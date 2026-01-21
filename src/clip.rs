@@ -1,15 +1,16 @@
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 use std::{
     fmt,
     sync::atomic::{AtomicUsize, Ordering},
 };
-
-use bevy::{platform::collections::HashMap, prelude::*};
 
 use crate::{
     animation::{AnimationDirection, AnimationDuration},
     easing::Easing,
     events::Marker,
 };
+use bevy::{platform::collections::HashMap, prelude::*};
 
 /// An opaque identifier for a [Clip]
 ///
@@ -17,6 +18,7 @@ use crate::{
 ///
 /// Wen creating animations, use [AnimationBuilder::get_current_clip_id()](crate::prelude::AnimationBuilder::get_current_clip_id) to retrieve a clip's ID.
 #[derive(Clone, Copy, Eq, PartialEq, Hash, Reflect)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize), serde(transparent))]
 #[reflect(Debug, PartialEq, Hash)]
 pub struct ClipId {
     pub(crate) value: usize,
@@ -68,6 +70,7 @@ impl ClipId {
 ///
 /// See [AnimationEvent](crate::prelude::AnimationEvent) for more details.
 #[derive(Debug, Clone, Reflect)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[reflect(Debug)]
 pub struct Clip {
     id: ClipId,

@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.1.0 - 2026-01-04
+
+### Added
+
+- Added feature-flag `serde`.
+- Added serde support to `Animation` struct.
+
 ## 5.0.0 - 2025-11-04
 
 This release comes with a significant rework of the high-level API that tightens up the relationships between spritesheets, clips and animations.
