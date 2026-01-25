@@ -29,6 +29,8 @@ pub mod easing;
 pub mod events;
 pub mod plugin;
 pub mod spritesheet;
+#[cfg(feature = "serde")]
+pub mod id_refreshing;
 
 pub mod prelude {
     pub use crate::{
@@ -50,5 +52,6 @@ pub mod prelude {
 
 mod animator;
 mod systems;
+
 
 const CRATE_NAME: &str = "bevy_spritesheet_animation";

@@ -11,13 +11,13 @@ use crate::{
     events::Marker,
 };
 use bevy::{platform::collections::HashMap, prelude::*};
-use crate::animation::IdRefresher;
+use crate::id_refreshing::IdRefresher;
 
 /// An opaque identifier for a [Clip]
 ///
 /// Clip-related [AnimationEvents](crate::prelude::AnimationEvent) will contain this ID.
 ///
-/// Wen creating animations, use [AnimationBuilder::get_current_clip_id()](crate::prelude::AnimationBuilder::get_current_clip_id) to retrieve a clip's ID.
+/// When creating animations, use [AnimationBuilder::get_current_clip_id()](crate::prelude::AnimationBuilder::get_current_clip_id) to retrieve a clip's ID.
 #[derive(Clone, Copy, Eq, PartialEq, Hash, Reflect)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize), serde(transparent))]
 #[reflect(Debug, PartialEq, Hash)]
@@ -44,6 +44,16 @@ impl ClipId {
     /// Creates a dummy clip ID that can be written to with [AnimationBuilder::get_current_clip_id()](crate::prelude::AnimationBuilder::get_current_clip_id).
     pub fn dummy() -> Self {
         Self { value: usize::MAX }
+    }
+}
+
+#[cfg(feature = "serde")]
+impl ClipId {
+    /// Provides a new ClipId.
+    /// Beware: Normally only the crate can create new IDs, but when using the serde feature,
+    /// You may want to re-initialize the Markers and ClipIDs according to the current runtime.
+    pub unsafe fn new_external() -> Self {
+        Self::new()
     }
 }
 
@@ -144,6 +154,7 @@ impl Clip {
     }
 
     /// Refreshes the ids and markers of [self].
+    #[cfg(feature = "serde")]
     pub(crate) fn refresh_ids<R: IdRefresher>(&mut self, index_in_animation: usize, mapper: &mut R) -> Result<(), R::Error> {
         self.id = mapper.refresh_clip_id(index_in_animation, self.id)?;
         for (frame, markers) in self.markers.iter_mut() {
