@@ -16,6 +16,25 @@ pub trait IdRefresher {
     fn refresh_marker(&mut self, clip_id: ClipId, frame: usize, marker: Marker) -> bevy::prelude::Result<Marker, Self::Error>;
 }
 
+/// A seal for a specific trait
+trait Sealed {}
+
+/// TODO: Sealed interface or public method?
+#[allow(private_bounds)]
+pub trait ClipIdProvider: Sealed {
+    /// Creates a new ClipID
+    unsafe fn new_clip_id() -> ClipId;
+}
+
+impl<T> Sealed for T where T: IdRefresher {}
+
+impl<T> ClipIdProvider for T where T: IdRefresher {
+    unsafe fn new_clip_id() -> ClipId {
+        ClipId::new()
+    }
+}
+
+
 /// A primitive implementation for refreshing IDs based on [HashMap].
 #[derive(Default)]
 pub struct MappingIdRefresher {

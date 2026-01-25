@@ -47,16 +47,6 @@ impl ClipId {
     }
 }
 
-#[cfg(feature = "serde")]
-impl ClipId {
-    /// Provides a new ClipId.
-    /// Beware: Normally only the crate can create new IDs, but when using the serde feature,
-    /// You may want to re-initialize the Markers and ClipIDs according to the current runtime.
-    pub unsafe fn new_external() -> Self {
-        Self::new()
-    }
-}
-
 /// A [Clip] is a sequence of frames.
 ///
 /// It is the most basic building block for creating [Animations](crate::prelude::Animation).
