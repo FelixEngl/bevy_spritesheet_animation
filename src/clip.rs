@@ -11,6 +11,7 @@ use crate::{
     events::Marker,
 };
 use bevy::{platform::collections::HashMap, prelude::*};
+use crate::animation::IdRefresher;
 
 /// An opaque identifier for a [Clip]
 ///
@@ -140,5 +141,16 @@ impl Clip {
     /// Multiple markers can be associated to the same frame.
     pub fn markers(&self) -> &HashMap<usize, Vec<Marker>> {
         &self.markers
+    }
+
+    /// Refreshes the ids and markers of [self].
+    pub(crate) fn refresh_ids<R: IdRefresher>(&mut self, index_in_animation: usize, mapper: &mut R) -> Result<(), R::Error> {
+        self.id = mapper.refresh_clip_id(index_in_animation, self.id)?;
+        for (frame, markers) in self.markers.iter_mut() {
+            for marker in markers {
+                *marker = mapper.refresh_marker(self.id, *frame, *marker)?;
+            }
+        }
+        Ok(())
     }
 }
