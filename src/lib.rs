@@ -48,6 +48,11 @@ pub mod prelude {
         plugin::SpritesheetAnimationPlugin,
         spritesheet::Spritesheet,
     };
+
+    #[cfg(feature = "serde")]
+    pub use crate::{
+        id_refreshing::*
+    };
 }
 
 mod animator;
